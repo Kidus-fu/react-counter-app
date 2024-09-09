@@ -1,0 +1,5 @@
+first install react user npm create vite@latest
+and choose you react libery and command npm install use cmd 
+create you file extion .jsx and import is => 
+        import you function  form you file name 
+    but you need to say you import function export default function name in you file
