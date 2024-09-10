@@ -9,9 +9,11 @@ function Counter() {
     const [conie,setConie] = useState(100)
     const [alertHieded,setAlertHieded] = useState(true)
     const [alertSetting,setAlertSetting] = useState(true)
-
+   const [isBuySeucces,setIsBuySeucces] = useState()
+   const [Buy100Hert,setBuy100Hert] = useState()
+   const [i,setI] = useState()
     const count = () => {
-        setNum(num + 1)
+        setNum( n => n + 1)
         if (num % 20 === 0) {
             setLevel(level + 1)
             setConie(conie + 10)
@@ -26,21 +28,48 @@ function Counter() {
         setAlertHieded(true)
     }
     const decret = () => {
-        setNum(num - 1)
+        setNum(n => n - 1)
+        if (num % -20 === 0 ) {
+            setAlertHieded(false)
+            setHert(h => h - 1)
+            let alertMessage = ["Noting going good","Stop Decret","Yoy going lose all",]
+            let alertChose = Math.floor(Math.random() * alertMessage.length)
+            document.querySelector("#alert").innerHTML = `:( ${alertMessage[alertChose]}`
+        }
     }
-    const S = (e) => {
+    const BuyHert = (e) => {
         
         e.preventDefault()
         console.log(e)
+        
+        if  (hert < 10  ){
+            if (conie > e.target.dataset.buy){ 
+                setIsBuySeucces(true)
+                setBuy100Hert(true)
+                setHert(h => h + parseInt(e.target.dataset.hert))  
+                setConie(c => c -parseInt(e.target.dataset.buy))
+            }else{
+                setIsBuySeucces(false)
+                setBuy100Hert(false)
+            }}else{
+                setIsBuySeucces(false)
+                setBuy100Hert(false)
+            }
+      
+        
     }
     const rest = () => {
-        setNum(0)
-        setHert(hert - 1)
+        setNum(n => n = 0)
+        setHert(h => h -1)
+        setLevel(l => l = 1)
+        setConie(c => c = 100)
     }
     if (hert === 0) {
         document.location.reload();
     }
-
+    function ss(event){
+        serI(event.target.value)
+    }
     return (
         <>
             
@@ -54,8 +83,8 @@ function Counter() {
                 <h5 className="text-start ms-2 mt-2">{hert} <span className="text-danger"> ♥️</span></h5>
                 <h5 className="text-start ms-2 mt-2">{conie} <span className="text-werring"> 🪙</span></h5>
                 <ul class="list-unstyled text-end">
-                    <li className="me-4">Level {level}</li>
-                    <li  class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Setting</li>
+                    <li className="me-4">Level {level} 🏆</li>
+                    <li  class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Setting 🛠️</li>
                 </ul>
 
                 <center className="mt-5">
@@ -73,7 +102,7 @@ function Counter() {
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Setting</h1>
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Setting 🛠️</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -89,10 +118,35 @@ function Counter() {
             <div className="col-5">
                 
     <button
-    className="btn btn-success"
+    className="btn btn-outline-info"
         data-bs-toggle="modal"
         data-bs-target="#modalId"
-    >Buy now</button>
+        data-buy="10"
+        data-hert="1"
+        onClick={(e) => { BuyHert(e)}}
+    >Buy now 🛒 </button>
+            </div>
+        </div>
+       </div>
+       <br />
+       <div
+        class="container-md"
+       >
+        <div className="row">
+            <div className="col-5">
+            <p>buy 10<span className="text-danger">♥️</span> = 100🪙</p>
+            </div>
+            <div className="col-2"></div>
+            <div className="col-5">
+                
+    <button
+    className="btn btn-outline-info"
+        data-bs-toggle="modal"
+        data-bs-target="#Buy100Hert"
+        data-buy="100"
+        data-hert="10"
+        onClick={(e) => { BuyHert(e)}}
+    >Buy now 🛒</button>
             </div>
         </div>
        </div>
@@ -103,49 +157,81 @@ function Counter() {
     
    
     
+       <input type="checkbox" value={i} checked={i} onChange={ss}/>
 </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-info" >Save</button>
+      <div className="modal-footer">
+        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" className="btn btn-info" >Save</button>
       </div>
     </div>
   </div>
 </div>
 <div
-        class="modal fade"
+        className="modal fade"
         id="modalId"
         tabindex="-1"
         role="dialog"
         aria-labelledby="modalTitleId"
         aria-hidden="true"
     >
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitleId">
-                        Modal title
-                    </h5>
+        <div className="modal-dialog" role="document">
+            <div className="modal-content">
+               <div className={isBuySeucces ? "bg-success rounded text-light" : "bg-danger rounded"}>
+                
+                <div className="modal-body">
                     <button
                         type="button"
-                        class="btn-close"
+                        className="btn-close "
                         data-bs-dismiss="modal"
                         aria-label="Close"
-                    ></button>
-                </div>
-                <div class="modal-body">
-                    <div class="container-fluid">Add rows here</div>
-                </div>
-                <div class="modal-footer">
+                    ></button><br />
+                    <div className="container-fluid ms-4 mt-3">{isBuySeucces ? "You'r Buy Is Success :)" : "You Hert Is Full I Can Buy More Over 10 :("}</div>
                     <button
                         type="button"
-                        class="btn btn-secondary"
+                        className="btn btn-secondary btn-sm w-100 mt-5"
                         data-bs-dismiss="modal"
                     >
                         Close
                     </button>
-                    <button type="button" class="btn btn-primary">Save</button>
                 </div>
+                </div>
+               
+                   
+            </div>
+        </div>
+    </div>
+    <div
+        className="modal fade"
+        id="Buy100Hert"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="modalTitleId"
+        aria-hidden="true"
+    >
+        <div className="modal-dialog" role="document">
+            <div className="modal-content">
+               <div className={Buy100Hert ? "bg-success rounded text-light" : "bg-danger rounded"}>
+                
+                <div className="modal-body">
+                    <button
+                        type="button"
+                        className="btn-close "
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                    ></button><br />
+                    <div className="container-fluid ms-4 mt-3">{Buy100Hert ? "You'r Buy Is Success :)" : "Youd'n Have Mech Coine :("}</div>
+                    <button
+                        type="button"
+                        className="btn btn-secondary btn-sm w-100 mt-5"
+                        data-bs-dismiss="modal"
+                    >
+                        Close
+                    </button>
+                </div>
+                </div>
+               
+                   
             </div>
         </div>
     </div>
