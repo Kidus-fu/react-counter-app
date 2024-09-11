@@ -1,4 +1,4 @@
-import { useState } from "react"
+import React ,{ useState,useEffect } from "react"
 
 import img from "./assets/gear-solid.svg"
 
@@ -8,20 +8,20 @@ function Counter() {
     const [level, setLevel] = useState(1)
     const [conie,setConie] = useState(100)
     const [alertHieded,setAlertHieded] = useState(true)
-    const [alertSetting,setAlertSetting] = useState(true)
    const [isBuySeucces,setIsBuySeucces] = useState()
    const [Buy100Hert,setBuy100Hert] = useState()
-   const [i,setI] = useState()
+   const [i,setI] = useState(true)
     const count = () => {
         setNum( n => n + 1)
         if (num % 20 === 0) {
+            if (i){ 
             setLevel(level + 1)
             setConie(conie + 10)
             setAlertHieded(false)
             let alertMessage = ["Gret keep taping","Nice work","Best try more make coines",]
             let alertChose = Math.floor(Math.random() * alertMessage.length)
             document.querySelector("#alert").innerHTML = `🎉 ${alertMessage[alertChose]}`
-        }
+        }}
         
     }
     const alertClose = (event) => {
@@ -30,12 +30,13 @@ function Counter() {
     const decret = () => {
         setNum(n => n - 1)
         if (num % -20 === 0 ) {
+            if (i){ 
             setAlertHieded(false)
             setHert(h => h - 1)
             let alertMessage = ["Noting going good","Stop Decret","Yoy going lose all",]
             let alertChose = Math.floor(Math.random() * alertMessage.length)
             document.querySelector("#alert").innerHTML = `:( ${alertMessage[alertChose]}`
-        }
+        }}
     }
     const BuyHert = (e) => {
         
@@ -68,11 +69,12 @@ function Counter() {
         document.location.reload();
     }
     function ss(event){
-        serI(event.target.value)
+        setI(event.target.checked)
     }
+    
+
     return (
         <>
-            
                 <div className={alertHieded ? "invisible" : "visible"}>
                 <div class="alert alert-light text-dark fixed-top alert-dismissible fade show  w-50" role="alert">
                     <p className="alert-text" id="alert"></p>
@@ -98,7 +100,7 @@ function Counter() {
 
 
 
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-3" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -155,9 +157,18 @@ function Counter() {
     
     
     
-   
-    
-       <input type="checkbox" value={i} checked={i} onChange={ss}/>
+   <div class="form-check form-switch">
+    <input
+        class="form-check-input"
+        type="checkbox"
+        id="flexSwitchCheckDefault"
+        value={i}
+        checked={i} 
+        onChange={ss}
+    />
+    <label class="form-check-label" for="flexSwitchCheckDefault"
+        >Alert showing ⚠️</label>
+   </div>
 </div>
       </div>
       <div className="modal-footer">
