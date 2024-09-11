@@ -11,6 +11,7 @@ function Counter() {
    const [isBuySeucces,setIsBuySeucces] = useState()
    const [Buy100Hert,setBuy100Hert] = useState()
    const [i,setI] = useState(true)
+   const [ErrorBuy100,setErrorBuy100] = useState("")
     const count = () => {
         setNum( n => n + 1)
         if (num % 20 === 0) {
@@ -41,7 +42,6 @@ function Counter() {
     const BuyHert = (e) => {
         
         e.preventDefault()
-        console.log(e)
         
         if  (hert < 10  ){
             if (conie > e.target.dataset.buy){ 
@@ -52,9 +52,11 @@ function Counter() {
             }else{
                 setIsBuySeucces(false)
                 setBuy100Hert(false)
+                setErrorBuy100("You don't have much monye")
             }}else{
                 setIsBuySeucces(false)
                 setBuy100Hert(false)
+                setErrorBuy100("You Hert Is over 10 Pleacs Try Leter")
             }
       
         
@@ -153,10 +155,6 @@ function Counter() {
         </div>
        </div>
        
-    
-    
-    
-    
    <div class="form-check form-switch">
     <input
         class="form-check-input"
@@ -231,7 +229,7 @@ function Counter() {
                         data-bs-dismiss="modal"
                         aria-label="Close"
                     ></button><br />
-                    <div className="container-fluid ms-4 mt-3">{Buy100Hert ? "You'r Buy Is Success :)" : "Youd'n Have Mech Coine :("}</div>
+                    <div className="container-fluid ms-4 mt-3">{Buy100Hert ? "Buy Is Successfull" : ErrorBuy100}</div>
                     <button
                         type="button"
                         className="btn btn-secondary btn-sm w-100 mt-5"
